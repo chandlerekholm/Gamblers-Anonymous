@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ekholm_Classes
 {
-    public class Audio_visual_cues
+    public class Deck
     {
+        public int cardCount { get; set; }
+        public bool isShuffled { get; set; }
     }
 }

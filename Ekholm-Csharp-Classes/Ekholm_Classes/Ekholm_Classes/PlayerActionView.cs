@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ekholm_Classes
 {
-    internal class PlayerActionView
+    public class PlayerActionView
     {
     }
 }

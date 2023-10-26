@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Ekholm_Classes
 {
-    public class Audio_visual_cues
+    public class Player
     {
+        public string? Name { get; set; }
+        public int cardsInHand { get; set; }
+        public bool canSeeCards { get; set; }
     }
 }

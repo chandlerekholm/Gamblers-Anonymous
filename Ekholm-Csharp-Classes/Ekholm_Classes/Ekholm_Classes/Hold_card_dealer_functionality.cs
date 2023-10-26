@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ekholm_Classes
 {
-    internal class Hold_card_dealer_functionality
+    public class Hold_card_dealer_functionality
     {
         //The program shuffles a deck of 52 cards when a new game starts,
         //two cards are dealt to each player,
