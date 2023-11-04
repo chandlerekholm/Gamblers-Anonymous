@@ -1,0 +1,14 @@
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\bin\Debug\net6.0\CSC470_TH.exe
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\bin\Debug\net6.0\CSC470_TH.deps.json
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\bin\Debug\net6.0\CSC470_TH.runtimeconfig.json
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\bin\Debug\net6.0\CSC470_TH.dll
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\bin\Debug\net6.0\CSC470_TH.pdb
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\obj\Debug\net6.0\CSC470_TH.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\obj\Debug\net6.0\CSC470_TH.AssemblyInfoInputs.cache
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\obj\Debug\net6.0\CSC470_TH.AssemblyInfo.cs
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\obj\Debug\net6.0\CSC470_TH.csproj.CoreCompileInputs.cache
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\obj\Debug\net6.0\CSC470_TH.dll
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\obj\Debug\net6.0\refint\CSC470_TH.dll
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\obj\Debug\net6.0\CSC470_TH.pdb
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\obj\Debug\net6.0\CSC470_TH.genruntimeconfig.cache
+C:\Users\x_slo\source\Repos\CSC470_TH\CSC470_TH\obj\Debug\net6.0\ref\CSC470_TH.dll
