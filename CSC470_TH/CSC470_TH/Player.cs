@@ -30,6 +30,8 @@ namespace CSC470_TH
 
         }
 
+        public int CurrentBet { get; set; } //stores the player's current Bet
+
         public void Check()
         {
             Console.WriteLine("Player " + this.playerName + " checked.");
@@ -38,21 +40,43 @@ namespace CSC470_TH
 
         public void Call()
         {
-            Console.WriteLine("Player " + this.playerName + " called.");
+            int callingChips = CurrentBet - this.CurrentBet;
+            if (callingChips > this.playerChips)
+            {
+                Console.WriteLine("Player " + this.playerName + " doesn't have sufficient chips to call.");
+            }
+            else
+            {
+                this.playerChips = this.playerChips - callingChips;
+                this.CurrentBet = CurrentBet;
+                Console.WriteLine(this.playerName + " called.");
+            }
+
             // TODO: Implement this method
         }
 
         public void Raise(int chipAmount)
         {
-            Console.WriteLine("Player " + this.playerName + " raised by " + chipAmount);
+            if (chipAmount > this.playerChips)
+            {
+                Console.WriteLine(this.playerName + " does not have enough chips to raise");
+            }
+            else
+            {
+                this.playerChips = this.playerChips - chipAmount;
+                this.CurrentBet = this.CurrentBet + chipAmount;
+                Console.WriteLine("Player " + this.playerName + " raised by " + chipAmount);
+            }
+
             // TODO: Implement this method
         }
 
         public void Fold()
         {
-            Console.WriteLine("Player " + this.playerName + " folded.");
             // TODO: Implement this method
-            Folded = true;
+            this.Folded = true;
+            
+            Console.WriteLine("Player " + this.playerName + " folded.");
         }
 
         public void calcRank(int chips, bool wonHand)

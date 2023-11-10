@@ -12,12 +12,14 @@ namespace CSC470_TH
         public int ID { get; }
         public string Suit { get; }
         public string Value { get; }
+        public bool inMuck { get; set; }
 
         public Card(int id, string suit, string value)
         {
             ID = id;
             Suit = suit;
             Value = value;
+            inMuck = false;
         }
 
     }

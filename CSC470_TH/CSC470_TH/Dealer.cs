@@ -102,8 +102,8 @@ namespace CSC470_TH
                     Deck.Add(card);
                 }
             }
+            
         }
-
 
 
 
