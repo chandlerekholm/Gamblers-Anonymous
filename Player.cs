@@ -15,18 +15,21 @@ namespace CSC470_TH
         public string playerName { get; set; }      // playerName stored in db, part of profile setup 
         public int playerRank { get; set; }         // playerRank determined by number of hands won, stored in db
         public int playerChips { get; set; }        // Amount of chips to be distributed to the player based on the table 
-        public List<Card> holeCards { get; set; } = default!;  // player's hole card
-        public List<Card> playersHand { get; set; } = default!; // The players current best hand
+        public List<Card> playerCards { get; set; } = default!;  // player's hole card
+        public List<Card> bestHand { get; set; } = default!; // The players current best hand
         public bool isWaiting { get; set; }         // Every player will initially be waiting
         public bool Folded { get; set; }            // Indication for when a player folds
 
-        public Player(string name, int startingChips, int rank)
+        
+        public Player(string name)
         {
-            playerName = name;
-            playerRank = playerRank;
-            playerChips = startingChips;
-            isWaiting = true;
-            Folded = false;
+            this.playerName = name;
+            this.playerChips = 0;
+            this.playerRank = 0;
+            this.playerCards = new List<Card>();
+            this.bestHand = new List<Card>();
+            this.isWaiting = true;
+            this.Folded = false;
 
         }
 
@@ -36,13 +39,13 @@ namespace CSC470_TH
             // TODO: Implement this method
         }
 
-        public void Call()
+        public void Call() //should return an int
         {
             Console.WriteLine("Player " + this.playerName + " called.");
             // TODO: Implement this method
         }
 
-        public void Raise(int chipAmount)
+        public void Raise(int chipAmount) // should return an int
         {
             Console.WriteLine("Player " + this.playerName + " raised by " + chipAmount);
             // TODO: Implement this method
@@ -54,6 +57,7 @@ namespace CSC470_TH
             // TODO: Implement this method
             Folded = true;
         }
+
 
         public void calcRank(int chips, bool wonHand)
         {
