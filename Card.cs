@@ -11,9 +11,9 @@ namespace CSC470_TH
 
         public int ID { get; }
         public string Suit { get; }
-        public string Value { get; }
+        public int Value { get; }
 
-        public Card(int id, string suit, string value)
+        public Card(int id, string suit, int value)
         {
             ID = id;
             Suit = suit;

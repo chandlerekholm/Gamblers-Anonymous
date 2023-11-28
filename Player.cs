@@ -16,7 +16,7 @@ namespace CSC470_TH
         public int playerRank { get; set; }         // playerRank determined by number of hands won, stored in db
         public int playerChips { get; set; }        // Amount of chips to be distributed to the player based on the table 
         public List<Card> playerCards { get; set; } = default!;  // player's hole card
-        public List<Card> bestHand { get; set; } = default!; // The players current best hand
+        public Hand playersHand { get; set; } = default!;       // The players current best hand
         public bool isWaiting { get; set; }         // Every player will initially be waiting
         public bool Folded { get; set; }            // Indication for when a player folds
 
@@ -27,7 +27,7 @@ namespace CSC470_TH
             this.playerChips = 0;
             this.playerRank = 0;
             this.playerCards = new List<Card>();
-            this.bestHand = new List<Card>();
+            this.playersHand = new Hand();
             this.isWaiting = true;
             this.Folded = false;
 

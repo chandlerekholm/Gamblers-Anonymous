@@ -1,0 +1,126 @@
+public void startGame()
+        {
+            Console.WriteLine("Number of players = " + this.players.Count());
+
+            this.printPlayers();
+
+            Console.WriteLine("Dealer shuffled deck...");
+            dealer.Shuffle(this.deck);
+
+
+
+            Console.WriteLine("Dealer is dealing out player cards...");
+            dealer.dealPlayerCards(this.deck, this.players);
+            
+            
+            foreach(Player p in this.players)
+            {
+                this.printPlayerCards(p);
+            }
+
+
+            dealer.burnCard(deck, burnCards);
+            Console.WriteLine("Dealer is dealing out the flop...");
+            dealer.dealFLop(deck, communityCards);
+            this.printCommunityCards();
+
+            dealer.burnCard(deck, burnCards);
+            Console.WriteLine("Dealer is dealing out the turn...");
+            dealer.dealTurnRiver(deck, communityCards);
+            this.printCommunityCards();
+
+            dealer.burnCard(deck, burnCards);
+            Console.WriteLine("Dealer is dealing out the river...");
+            dealer.dealTurnRiver(deck, communityCards);
+            this.printCommunityCards();
+
+
+
+            Console.WriteLine("Community Cards are...");
+            foreach (Card c in this.communityCards)
+            {
+                Console.WriteLine(c.Value + " of " + c.Suit);
+            }
+
+
+            foreach (Player p in this.players)
+            {
+                Console.WriteLine(p.playerName + "'s cards are...");
+                foreach (Card c in p.playerCards)
+                {
+                    Console.WriteLine(c.Value + " of " + c.Suit);
+                }
+            }
+
+            List<Player> roundWinners = DetermineWinner(this.players, this.communityCards);
+
+            foreach(Player p in roundWinners)
+            {
+                Console.WriteLine(p.playerName + " wins the round with a " + p.playersHand.handTitle);
+            }
+
+            Console.WriteLine("*********************NEW ROUND**************************");
+            
+            dealer.resetTable(this.players, this.deck, this.communityCards, this.burnCards);
+
+
+            Console.WriteLine("Number of players = " + this.players.Count());
+
+            this.printPlayers();
+
+            Console.WriteLine("Dealer shuffled deck...");
+            dealer.Shuffle(this.deck);
+
+
+
+            Console.WriteLine("Dealer is dealing out player cards...");
+            dealer.dealPlayerCards(this.deck, this.players);
+
+
+            foreach (Player p in this.players)
+            {
+                this.printPlayerCards(p);
+            }
+
+
+            dealer.burnCard(deck, burnCards);
+            Console.WriteLine("Dealer is dealing out the flop...");
+            dealer.dealFLop(deck, communityCards);
+            this.printCommunityCards();
+
+            dealer.burnCard(deck, burnCards);
+            Console.WriteLine("Dealer is dealing out the turn...");
+            dealer.dealTurnRiver(deck, communityCards);
+            this.printCommunityCards();
+
+            dealer.burnCard(deck, burnCards);
+            Console.WriteLine("Dealer is dealing out the river...");
+            dealer.dealTurnRiver(deck, communityCards);
+            this.printCommunityCards();
+
+
+
+            Console.WriteLine("Community Cards are...");
+            foreach (Card c in this.communityCards)
+            {
+                Console.WriteLine(c.Value + " of " + c.Suit);
+            }
+
+
+            foreach (Player p in this.players)
+            {
+                Console.WriteLine(p.playerName + "'s cards are...");
+                foreach (Card c in p.playerCards)
+                {
+                    Console.WriteLine(c.Value + " of " + c.Suit);
+                }
+            }
+
+            roundWinners = DetermineWinner(this.players, this.communityCards);
+
+            foreach (Player p in roundWinners)
+            {
+                Console.WriteLine(p.playerName + " wins the round with a " + p.playersHand.handTitle);
+            }
+
+        }
