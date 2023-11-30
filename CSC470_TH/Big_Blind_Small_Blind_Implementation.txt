@@ -1,0 +1,82 @@
+Instead of having a token class and using that to indicate who has the big/small blinds and subtract those amounts from the player's chips and add them to the pot...I think it 
+would make more sense to add attributes and methods to the existing player and game classes for this funtionality. PLEASE feel free to do something better/more efficient, or something 
+that makes more sense to you if you want, this is just a suggestion of how I think this could work. 
+
+
+1. In the Player class, add two boolean attributes that indicate if a player is big blind or small blind. Something similair to how we have boolean attributes for waiting, folded, and allin. Set those
+   variables to false in the player constructor. 
+
+2. Create a method in the player class with two boolean parameters. I'm thinking the method doesn't return anything, instead we just use it to set the players bigblind/smallblind attributes making sure we reset 
+   those variables on every call so that no more than one player it bb or sb at one time. So something like... 
+                     public void SetBlinds(bool isBB, bool isSB)
+                     {
+                        this.big blind variable = false
+                        this.small blind variable false
+                        
+                        
+                        this.big blind variable = isBB;
+                        this.small blind variable = isSB;
+                     }
+
+   I'm thinking we can use this in the Game class to quickly assign/unassign blinds the appropriate players...at the start of every round one player will need small blind set to false and 
+   big blind set to true simultaneously, thats why I'm thinking one method for both attributes. 
+
+3. In the Game class, add two Player attributes. One for each player that holds each blind for a particular round. 
+
+4. Also in the Game class, create an int variable that we can use to hold an index value in the list of players in the game. We can use this index to rotate around the table and assign the blinds. 
+   Set this variable to 0 in the Game constructor. 
+
+5. Create a method in the game class that returns and player. I'm thinking this method should use the index varible we created to assign big and small blinds to the appropriate player. Something like...
+
+
+                    public Player NextPlayer()
+                    {
+                        Player nextPlayer = this.players[index variable];
+                        
+                        nextPlayer.SetBlinds(isBB: false, isSB: false);
+
+                        index variable = (index variable + 1) % this.players.Count;
+
+                        return nextPlayer;
+                    }
+ 6. In the Game class in the StartRound method, set the each of the player attributes we created to indicate who is small/big blinds equal to whatever is returned from the NextPlayer (or whatever you decide to call it) method. Since
+    in real texas holdem, the big blind sits before the small blind in clockwise rotation, It would be important to make sure that the bigblind player is assigned before the small blind since we're using an incremented
+    index variable to make the assignments. Something like...
+
+                public void StartRound()
+                {
+                    bb player variable = NextPlayer();
+                    sb player variable = NextPlayer();
+
+                    // existing code
+
+                }
+
+
+
+7. Ok, so assuming we have this working and the big blind/small blind assignments are rotating as expected, all we have left to handle now is making sure that the correct amounts are removed from the players chip stack
+   and added to the pot. In the Player class, you could add a method that use an int parameter to subtract from the player's chip stack depending on what blind the currently are. Something like...
+
+                public void PayBlind(int ChipAmount)
+                {
+                    this.playerChips -= ChipAmount;
+                }
+
+8. Finally, I think to finish this part up, you can just add this into the StartRound method along with adding the blinds to the pot in the Game class...
+
+                public void StartRound()
+                {
+                    bb player variable = NextPlayer();
+                    sb player variable = NextPlayer();
+
+                    bb player variable.PayBlind(bigBlind);
+                    sb player variable.PayBlind(smallBlind);
+
+                    this.pot += (bigBlind + smallBlind);
+
+                    // existing code
+
+                }
+
+    blinds and set in the Game constructor and are for now just going to be a static assignment until Dakota/Brian have a UI stood up that we can use to set those values. 
+

@@ -1,0 +1,513 @@
+Hand Evaluation Testing
+
+1. High Card
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 10);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 5);
+        Card cc2 = new Card(1, "Spades", 11);
+        Card cc3 = new Card(1, "Diamonds", 2);
+        Card cc4 = new Card(1, "Spades", 9);
+        Card cc5 = new Card(1, "Clubs", 13);   -- HIGH CARD
+
+
+    RESULTS = John has High Card
+              John's best hand cards are...
+              13 of Clubs
+              PASS
+
+-------------------------------------------------------
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 10);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 5);
+        Card cc2 = new Card(1, "Spades", 14);   -- HIGH CARD
+        Card cc3 = new Card(1, "Diamonds", 7);
+        Card cc4 = new Card(1, "Spades", 9);
+        Card cc5 = new Card(1, "Clubs", 4);
+
+    RESULTS = John has High Card
+              John's best hand cards are...
+              14 of Spades
+              PASS
+
+
+*******************************************************
+
+2. One Pair
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 10);  -- 1 PAIR
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 5);
+        Card cc2 = new Card(1, "Spades", 10);  -- 1 PAIR
+        Card cc3 = new Card(1, "Diamonds", 7);
+        Card cc4 = new Card(1, "Spades", 9);
+        Card cc5 = new Card(1, "Clubs", 4);
+
+    RESULTS = John's best hand cards are...
+              10 of Clubs
+              10 of Spades
+              PASS
+
+-------------------------------------------------------
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 10);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 4);  -- 1 PAIR
+        Card cc2 = new Card(1, "Spades", 14);
+        Card cc3 = new Card(1, "Diamonds", 7);
+        Card cc4 = new Card(1, "Spades", 9);
+        Card cc5 = new Card(1, "Clubs", 4);  -- 1 PAIR
+
+    RESULTS = John has Pair
+              John's best hand cards are...
+              4 of Diamonds
+              4 of Clubs
+              PASS
+
+
+******************************************************
+
+3. Two Pair
+
+     //Players Cards
+        Card pc1 = new Card(1, "Clubs", 10);  -- 2 PAIR
+        Card pc2 = new Card(1, "Clubs", 3);  -- 1 PAIR
+
+     //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 10); -- 2 PAIR
+        Card cc2 = new Card(1, "Spades", 3);  -- 1 PAIR
+        Card cc3 = new Card(1, "Diamonds", 7);
+        Card cc4 = new Card(1, "Spades", 9);
+        Card cc5 = new Card(1, "Clubs", 4);
+
+    RESULTS = John has 2 Pair
+              John's best hand cards are...
+              3 of Clubs
+              3 of Spades
+              10 of Clubs
+              10 of Diamonds
+              PASS
+
+-------------------------------------------------------
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 5);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 10);
+        Card cc2 = new Card(1, "Spades", 10);
+        Card cc3 = new Card(1, "Diamonds", 7);
+        Card cc4 = new Card(1, "Spades", 9);
+        Card cc5 = new Card(1, "Clubs", 7);
+
+
+    RESULTS = John has 2 Pair
+              John's best hand cards are...
+              7 of Diamonds
+              7 of Clubs
+              10 of Diamonds
+              10 of Spades
+              PASS
+
+**************************************************************
+
+4. Three of a kind
+
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 4);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 4);
+        Card cc2 = new Card(1, "Spades", 4);
+        Card cc3 = new Card(1, "Diamonds", 7);
+        Card cc4 = new Card(1, "Spades", 9);
+        Card cc5 = new Card(1, "Clubs", 7);
+
+    RESULTS = John has 3 of a Kind
+              John's best hand cards are...
+              4 of Clubs
+              4 of Diamonds
+              4 of Spades
+              PASS
+
+
+--------------------------------------------------------------
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 2);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 4);
+        Card cc2 = new Card(1, "Spades", 4);
+        Card cc3 = new Card(1, "Diamonds", 13);
+        Card cc4 = new Card(1, "Spades", 13);
+        Card cc5 = new Card(1, "Clubs", 13);
+
+    RESULTS = John has 3 of a Kind
+              John's best hand cards are...
+              13 of Diamonds
+              13 of Spades
+              13 of Clubs
+              PASS
+
+*************************************************************
+
+5. Straight
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 6);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 4);
+        Card cc2 = new Card(1, "Spades", 5);
+        Card cc3 = new Card(1, "Diamonds", 13);
+        Card cc4 = new Card(1, "Spades", 7);
+        Card cc5 = new Card(1, "Clubs", 13);
+    
+    RESULTS = John has Straight
+              John's best hand cards are...
+              3 of Clubs
+              4 of Diamonds
+              5 of Spades
+              6 of Clubs
+              7 of Spades
+              PASS
+
+---------------------------------------------------------------
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 7);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 9);
+        Card cc2 = new Card(1, "Spades", 8);
+        Card cc3 = new Card(1, "Diamonds", 10);
+        Card cc4 = new Card(1, "Spades", 7);
+        Card cc5 = new Card(1, "Clubs", 11);
+    
+    RESULTS = John has Straight
+              John's best hand cards are...
+              7 of Spades
+              8 of Spades
+              9 of Diamonds
+              10 of Diamonds
+              11 of Clubs
+              PASS
+
+----------------------------------------------------------------
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 14);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 2);
+        Card cc2 = new Card(1, "Spades", 8);
+        Card cc3 = new Card(1, "Diamonds", 4);
+        Card cc4 = new Card(1, "Spades", 5);
+        Card cc5 = new Card(1, "Clubs", 11);
+    
+    RESULTS = John has Straight
+              John's best hand cards are...
+              14 of Clubs
+              2 of Diamonds
+              3 of Clubs
+              4 of Diamonds
+              5 of Spades
+              PASS
+
+********************************************************************
+
+6. Flush
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 10);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Clubs", 2);
+        Card cc2 = new Card(1, "Clubs", 8);
+        Card cc3 = new Card(1, "Diamonds", 4);
+        Card cc4 = new Card(1, "Spades", 5);
+        Card cc5 = new Card(1, "Clubs", 11);
+
+    RESULTS = John has Flush
+              John's best hand cards are...
+              2 of Clubs
+              3 of Clubs
+              8 of Clubs
+              10 of Clubs
+              11 of Clubs
+              PASS
+
+----------------------------------------------------------------------
+
+
+     //Players Cards
+        Card pc1 = new Card(1, "Clubs", 10);
+        Card pc2 = new Card(1, "Diamonds", 3);
+
+     //Table Cards
+        Card cc1 = new Card(1, "Spades", 2);
+        Card cc2 = new Card(1, "Spades", 8);
+        Card cc3 = new Card(1, "Spades", 4);
+        Card cc4 = new Card(1, "Spades", 5);
+        Card cc5 = new Card(1, "Spades", 11);
+
+    RESULTS = John has Flush
+              John's best hand cards are...
+              2 of Spades
+              4 of Spades
+              5 of Spades
+              8 of Spades
+              11 of Spades
+              PASS
+
+-----------------------------------------------------------------------
+
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 14);
+        Card pc2 = new Card(1, "Diamonds", 14);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 2);
+        Card cc2 = new Card(1, "Spades", 8);
+        Card cc3 = new Card(1, "Diamonds", 4);
+        Card cc4 = new Card(1, "Diamonds", 5);
+        Card cc5 = new Card(1, "Diamonds", 11);
+
+    RESULTS = John has Flush
+              John's best hand cards are...
+              2 of Diamonds
+              4 of Diamonds
+              5 of Diamonds
+              11 of Diamonds
+              14 of Diamonds
+              PASS
+
+***********************************************************************
+
+7. Full House
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 5);
+        Card pc2 = new Card(1, "Spades", 5);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 2);
+        Card cc2 = new Card(1, "Spades", 2);
+        Card cc3 = new Card(1, "Diamonds", 4);
+        Card cc4 = new Card(1, "Diamonds", 5);
+        Card cc5 = new Card(1, "Clubs", 2);
+
+    RESULTS = John has Full House
+              John's best hand cards are...
+              2 of Diamonds
+              2 of Spades
+              2 of Clubs
+              5 of Clubs
+              5 of Spades
+              PASS
+
+-----------------------------------------------------------------------
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 2);
+        Card pc2 = new Card(1, "Spades", 5);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 10);
+        Card cc2 = new Card(1, "Spades", 2);
+        Card cc3 = new Card(1, "Diamonds", 10);
+        Card cc4 = new Card(1, "Diamonds", 2);
+        Card cc5 = new Card(1, "Clubs", 10);
+
+    RESULTS = John has Full House
+              John's best hand cards are...
+              10 of Diamonds
+              10 of Diamonds
+              10 of Clubs
+              2 of Clubs
+              2 of Spades
+              PASS
+
+************************************************************************
+
+8. 4 of a kind
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 2);
+        Card pc2 = new Card(1, "Spades", 2);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 5);
+        Card cc2 = new Card(1, "Spades", 11);
+        Card cc3 = new Card(1, "Diamonds", 2);
+        Card cc4 = new Card(1, "Diamonds", 13);
+        Card cc5 = new Card(1, "Hearts", 2);
+
+    RESULTS = John has 4 of a Kind
+              John's best hand cards are...
+              2 of Clubs
+              2 of Spades
+              2 of Diamonds
+              2 of Hearts
+              PASS
+
+-------------------------------------------------------------------------
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 2);
+        Card pc2 = new Card(1, "Spades", 10);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Spades", 2);
+        Card cc2 = new Card(1, "Spades", 11);
+        Card cc3 = new Card(1, "Diamonds", 2);
+        Card cc4 = new Card(1, "Diamonds", 13);
+        Card cc5 = new Card(1, "Hearts", 2);
+
+    RESULTS = John has 4 of a Kind
+              John's best hand cards are...
+              2 of Clubs
+              2 of Spades
+              2 of Diamonds
+              2 of Hearts
+              PASS
+
+**************************************************************************
+
+9. Straight Flush
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 2);
+        Card pc2 = new Card(1, "Clubs", 3);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Clubs", 4);
+        Card cc2 = new Card(1, "Clubs", 5);
+        Card cc3 = new Card(1, "Clubs", 6);
+        Card cc4 = new Card(1, "Clubs", 7);
+        Card cc5 = new Card(1, "Clubs", 8);
+
+    RESULTS = John has Straight Flush
+              John's best hand cards are...
+              4 of Clubs
+              5 of Clubs
+              6 of Clubs
+              7 of Clubs
+              8 of Clubs
+              PASS
+
+---------------------------------------------------------------------------
+
+    //Players Cards
+        Card pc1 = new Card(1, "Clubs", 2);
+        Card pc2 = new Card(1, "Diamonds", 7);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Diamonds", 8);
+        Card cc2 = new Card(1, "Diamonds", 9);
+        Card cc3 = new Card(1, "Clubs", 14);
+        Card cc4 = new Card(1, "Diamonds", 11);
+        Card cc5 = new Card(1, "Diamonds", 10);  
+        
+    RESULTS = John has Straight Flush
+              John's best hand cards are...
+              7 of Diamonds
+              8 of Diamonds
+              9 of Diamonds
+              10 of Diamonds
+              11 of Diamonds
+              PASS
+
+***************************************************************************
+
+10. Royal Flush
+
+     //Players Cards
+        Card pc1 = new Card(1, "Clubs", 10);
+        Card pc2 = new Card(1, "Diamonds", 7);
+
+    //Table Cards
+        Card cc1 = new Card(1, "Clubs", 11);
+        Card cc2 = new Card(1, "Clubs", 12);
+        Card cc3 = new Card(1, "Clubs", 14);
+        Card cc4 = new Card(1, "Diamonds", 11);
+        Card cc5 = new Card(1, "Clubs", 13);  
+        
+    RESULTS = John has Royay Flush
+              John's best hand cards are...
+              10 of Clubs
+              11 of Clubs
+              12 of Clubs
+              13 of Clubs
+              14 of Clubs
+              PASS
+
+***************************************************************************
+
+/*Dealer d1 = new Dealer("Vegas Dealer");
+            Player p1 = new Player("John");
+
+            //Players Cards
+            Card pc1 = new Card(1, "Spades", 2);
+            Card pc2 = new Card(1, "Spades", 10);
+
+            //Table Cards
+            Card cc1 = new Card(1, "Spades", 6);
+            Card cc2 = new Card(1, "Spades", 7);
+            Card cc3 = new Card(1, "Spades", 8);
+            Card cc4 = new Card(1, "Spades", 9);
+            Card cc5 = new Card(1, "Spades", 14);
+
+
+            game.players.Add(new Player("John"));
+            game.printPlayers();
+
+            p1.playerCards.Add(pc1);
+            p1.playerCards.Add(pc2);
+
+            game.printPlayerCards(p1);
+
+            game.communityCards.Add(cc1);
+            game.communityCards.Add(cc2);
+            game.communityCards.Add(cc3);
+            game.communityCards.Add(cc4);
+            game.communityCards.Add(cc5);
+
+            game.printCommunityCards();
+
+
+            game.printCommunityCards();
+
+
+
+            p1.playersHand.EvaluateHand(p1.playerCards, game.communityCards, p1);
+
+            Console.WriteLine(p1.playerName + " has " + p1.playersHand.handTitle);
+            Console.WriteLine(p1.playerName + "'s best hand cards are...");
+            foreach(Card c in p1.playersHand.bestHand)
+            {
+                Console.WriteLine(c.Value + " of " + c.Suit);
+            } */
