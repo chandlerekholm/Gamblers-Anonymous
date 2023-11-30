@@ -10,7 +10,6 @@ namespace CSC470_TH
 {
     public class Game
     {
-
         public List<Player> players { get; set; } = default!;
         public List<Card> deck { get; set; } = default!;
         public List<Card> communityCards { get; set; } = default!;
@@ -21,11 +20,16 @@ namespace CSC470_TH
         public int smallBlind {  get; set; }
         public int bigBlind { get; set; }
         public int potAmount { get; set; }
-
+        private Player bigBlindPlayer;
+        private Player smallBlindPlayer;
+        private int currentPlayerIndex;
 
 
         public Game(int buyIn, int BB, int SB)
         {
+            bigBlindPlayer = null;
+            smallBlindPlayer = null;
+            currentPlayerIndex = 0;
             this.players = InitializePlayers();
             this.deck = InitializeDeck();
             this.communityCards = new List<Card>();
@@ -50,6 +54,32 @@ namespace CSC470_TH
 
             return initialPlayers;
 
+        }
+
+        public Player NextPlayer()
+        {
+            Player nextPlayer = players[currentPlayerIndex];
+
+            nextPlayer.SetBlinds(isBB: false, isSB: false);
+
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
+
+            if (this.players.Count == 2 && currentPlayerIndex == 0)
+            {
+                currentPlayerIndex = 1;
+            }
+
+            nextPlayer.SetBlinds(isBB: false, isSB: false);
+            if (currentPlayerIndex == 0)
+            {
+                nextPlayer.SetBlinds(isBB: true, isSB: false);
+            }
+            else
+            {
+                nextPlayer.SetBlinds(isBB: false, isSB: true);
+            }
+
+            return nextPlayer;
         }
 
         private List<Card> InitializeDeck()
@@ -89,6 +119,14 @@ namespace CSC470_TH
 
         private void StartRound()
         {
+            bigBlindPlayer = NextPlayer();
+            smallBlindPlayer = NextPlayer();
+
+            bigBlindPlayer.PayBlind(bigBlind);
+            smallBlindPlayer.PayBlind(smallBlind);
+
+            this.potAmount += (bigBlind + smallBlind);
+
             Console.WriteLine("Dealer shuffled deck...");
             dealer.Shuffle(this.deck);
 
@@ -207,11 +245,7 @@ namespace CSC470_TH
 
                 }
                     
-
-
-
             }
-
 
         }
 

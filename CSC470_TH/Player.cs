@@ -20,8 +20,9 @@ namespace CSC470_TH
         public bool isWaiting { get; set; }         // Every player will initially be waiting
         public bool Folded { get; set; }            // Indication for when a player folds
         public bool allIn {  get; set; }
+        public bool IsBigBlind { get; set; } = false;
+        public bool IsSmallBlind { get; set; } = false;
 
-        
         public Player(string name)
         {
             this.playerName = name;
@@ -32,7 +33,19 @@ namespace CSC470_TH
             this.isWaiting = true;
             this.Folded = false;
             this.allIn = false;
+            IsBigBlind = false;
+            IsSmallBlind = false;
+        }
 
+        public void SetBlinds(bool isBB, bool isSB)
+        {
+            IsBigBlind = isBB;
+            IsSmallBlind = isSB;
+        }
+
+        public void PayBlind(int chipAmount)
+        {
+            this.playerChips -= chipAmount;
         }
 
         public void Check()
