@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chand\\source\\repos\\Gamblers-Anonymous\\testingGithub\\helloWorld\\helloWorld.csproj": {}
+    "C:\\Users\\16052\\Gamblers-Anonymous\\Testing\\testingGithub\\helloWorld\\helloWorld.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chand\\source\\repos\\Gamblers-Anonymous\\testingGithub\\helloWorld\\helloWorld.csproj": {
+    "C:\\Users\\16052\\Gamblers-Anonymous\\Testing\\testingGithub\\helloWorld\\helloWorld.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chand\\source\\repos\\Gamblers-Anonymous\\testingGithub\\helloWorld\\helloWorld.csproj",
+        "projectUniqueName": "C:\\Users\\16052\\Gamblers-Anonymous\\Testing\\testingGithub\\helloWorld\\helloWorld.csproj",
         "projectName": "helloWorld",
-        "projectPath": "C:\\Users\\chand\\source\\repos\\Gamblers-Anonymous\\testingGithub\\helloWorld\\helloWorld.csproj",
-        "packagesPath": "C:\\Users\\chand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chand\\source\\repos\\Gamblers-Anonymous\\testingGithub\\helloWorld\\obj\\",
+        "projectPath": "C:\\Users\\16052\\Gamblers-Anonymous\\Testing\\testingGithub\\helloWorld\\helloWorld.csproj",
+        "packagesPath": "C:\\Users\\16052\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\16052\\Gamblers-Anonymous\\Testing\\testingGithub\\helloWorld\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\chand\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\16052\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -60,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
