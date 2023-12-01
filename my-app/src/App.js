@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import AuthForm from './components/AuthForm';
-import Welcome from './components/Welcome';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AuthForm from './AuthForm';
+import Welcome from './Welcome';
+import GameLobby from './GameLobby';
+import GameTable from './GameTable';
 
 const App = () => {
     const [user, setUser] = useState(null);
@@ -10,11 +12,19 @@ const App = () => {
         setUser(guestName || 'Guest');
     };
 
-    if (user) {
-        return <Welcome userName={user} />;
-    }
-
-    return <AuthForm onGuestLogin={handleGuestLogin} />;
+    return (
+        <Router>
+            <Switch>
+                <Route path="/" exact>
+                    {user ? <Welcome userName={user} /> : <AuthForm onGuestLogin={handleGuestLogin} />}
+                </Route>
+                <Route path="/welcome" component={Welcome} />
+                <Route path="/lobby" component={GameLobby} />
+                <Route path="/game" component={GameTable} />
+                {/* Add other routes as needed */}
+            </Switch>
+        </Router>
+    );
 };
 
 export default App;
