@@ -6,7 +6,7 @@ const GameLobby = () => {
             <h2>Game Lobby</h2>
             <button>Create Game</button>
             <button>Join Game</button>
-            {/* Add more functionality as needed */}
+            {/* add more as needed */}
         </div>
     );
 }

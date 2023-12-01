@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+/* GameTable.css */
+.card {
+  display: inline-block;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+}

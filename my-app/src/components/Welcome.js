@@ -1,23 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Welcome = ({ userName }) => {
+    const navigate = useNavigate();
+
+    const handleQuickPlay = () => {
+        // call your backend to search for open game lobby
+        console.log('Searching for an open game lobby...');
+
+        // Quick create game for testing purposes
+        navigate('/game');
+    };
+
     return (
-        <div style={{ backgroundColor: '#121212', color: 'white', padding: '20px', textAlign: 'center' }}>
-            <h2>Welcome {userName}</h2>
-            <button style={buttonStyle}>Create Game Lobby</button>
-            <button style={buttonStyle}>Join Game Lobby</button>
+        <div>
+            <h1>Welcome, {userName}!</h1>
+            <button onClick={() => navigate('/lobby')}>Create Game Lobby</button>
+            <button onClick={() => navigate('/lobby')}>Join Game Lobby</button>
+            <button onClick={handleQuickPlay}>Quick Play!</button>
         </div>
     );
-};
-
-const buttonStyle = {
-    width: '100%',
-    padding: '10px',
-    backgroundColor: '#1DB954',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
 };
 
 export default Welcome;
