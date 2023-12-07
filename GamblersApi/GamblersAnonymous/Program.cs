@@ -9,6 +9,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -18,11 +19,10 @@ app.UseSwaggerUI(c =>
 });
 
 app.MapGet("/", () => "Hello World!");
-app.MapGet("/api/v1/players", () => Players.GetPlayers());
-app.MapGet("/api/v1/players/{id}", (int id) => Players.GetPlayer(id));
-app.MapPost("/api/v1/players", (Player player) => Players.AddPlayer(player));
-app.MapPut("/api/v1/players/{id}", (int id, Player player) => Players.UpdatePlayer(id, player));
-app.MapDelete("/api/v1/players/{id}", (int id) => Players.DeletePlayer(id));
+app.MapPost("/game", (Game game) => game.startGame());
+app.MapGet("/games", () => "List of games");
+app.MapGet("/games/{id}", (int id) => $"Game {id}");
+
 
 
 app.Run();
