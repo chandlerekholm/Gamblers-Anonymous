@@ -1,5 +1,5 @@
 using Microsoft.OpenApi.Models;
-
+using GamblersAnonymous;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -18,5 +18,11 @@ app.UseSwaggerUI(c =>
 });
 
 app.MapGet("/", () => "Hello World!");
+app.MapGet("/api/v1/players", () => Players.GetPlayers());
+app.MapGet("/api/v1/players/{id}", (int id) => Players.GetPlayer(id));
+app.MapPost("/api/v1/players", (Player player) => Players.AddPlayer(player));
+app.MapPut("/api/v1/players/{id}", (int id, Player player) => Players.UpdatePlayer(id, player));
+app.MapDelete("/api/v1/players/{id}", (int id) => Players.DeletePlayer(id));
+
 
 app.Run();
