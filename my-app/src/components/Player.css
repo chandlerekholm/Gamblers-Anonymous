@@ -1,0 +1,17 @@
+.player {
+    border: 1px solid #666;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #eee;
+    text-align: center;
+}
+
+.player-name {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.player-chips {
+    font-size: 16px;
+}
