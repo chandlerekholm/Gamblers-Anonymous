@@ -41,7 +41,7 @@ namespace CSC470_TH
             IsSmallBlind = false;
         }
 
-        public void SetBlinds(bool isBB, bool isSB)
+        public void SetBlinds(bool isSB, bool isBB)
         {
             this.IsBigBlind = false;
             this.IsSmallBlind = false;
@@ -68,7 +68,6 @@ namespace CSC470_TH
             bool isBlind = true;
             this.playerChips -= chipAmount;
             this.UpdateCurrentBet(chipAmount, isBlind);
-            Console.WriteLine(this.playerName + " pays " + chipAmount + " chips into the pot for the Big Blind and has " + this.playerChips + " chips left.");
         }
 
         public void PaySmallBlind(int chipAmount)
@@ -76,7 +75,6 @@ namespace CSC470_TH
             bool isBlind = true;
             this.playerChips -= chipAmount;
             this.UpdateCurrentBet(chipAmount, isBlind);
-            Console.WriteLine(this.playerName + " pays " + chipAmount + " chips into the pot for the Small Blind and has " + this.playerChips + " chips left.");
         }
 
         public void UpdateCurrentBet(int chipAmount, bool isBlind)
@@ -84,10 +82,11 @@ namespace CSC470_TH
             
             this.playerCurrentBet += chipAmount;
             this.playerTotalBet += chipAmount;
-            if (!isBlind)
-            {
-                Console.WriteLine(this.playerName + " has " + this.playerTotalBet + " chips in the pot.");
-            }
+        }
+
+        public void addToChips(int chipAmount)
+        {
+            this.playerChips += chipAmount;
         }
 
         public void ResetCurrentBet()
@@ -153,7 +152,7 @@ namespace CSC470_TH
             {
                 // player does not have enough chips for the raise, returning 0 to indicate unsuccessful raise
                 int maxRaise = this.playerChips - (currentBet - this.playerCurrentBet);
-                Console.WriteLine(this.playerName + " does not have enough chips for this raise. Maximum raise allowed would be " + maxRaise + " chips." );
+                Console.WriteLine(this.playerName + " does not have enough chips for this raise. Maximum raise allowed is " + maxRaise + " chips." );
                 return 0; //this.playerChips - currentBet - this.playerCurrentBet
             }
 
@@ -172,6 +171,7 @@ namespace CSC470_TH
         }
 
 
+        // update player record in DB
         /*public void calcRank(int chips, bool wonHand)
         {
             Console.WriteLine("Player " + this.playerName + " rank changed.");

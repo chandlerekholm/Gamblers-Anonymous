@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace CSC470_TH
 {
-     public class Hand
+    // this class is used to evaluate each player's hand for the best possible hand and 
+    // return the value if that hand so that a winner can be determined
+    public class Hand
     {
         public int handRank {  get; set; }
         public string handTitle { get; set; }
@@ -41,12 +43,6 @@ namespace CSC470_TH
         {
             List<Card> allCards = holeCards.Concat(communityCards).ToList();
             allCards.Sort((x, y) => x.Value.CompareTo(y.Value));
-
-            Console.WriteLine(p.playerName + "'s cards are...");
-            foreach (Card card in allCards)
-            {
-                Console.WriteLine(card.Value + " of " + card.Suit);
-            }
 
             if (IsRoyalFlush(allCards))
             {
@@ -241,34 +237,6 @@ namespace CSC470_TH
             return false;
         }
 
-        //method for removing duplicates from the card list, not currently used keeping in case needed later
-        public void RemoveDuplicates(List<Card> cards)
-        {
-            var uniqueValues = new HashSet<int>();
-            var duplicates = new List<Card>();
-
-            foreach (var card in cards)
-            {
-                if (!uniqueValues.Add(card.Value))
-                {
-                    // If the rank is already in the HashSet, add it to duplicates
-                    duplicates.Add(card);
-                }
-            }
-
-            foreach (var duplicate in duplicates)
-            {
-                // Find the index of the first occurrence of each duplicate rank
-                var index = cards.FindIndex(card => card.Value == duplicate.Value);
-
-                if (index != -1)
-                {
-                    // Remove all but the first occurrence of each duplicate rank
-                    cards.RemoveAll(card => card.Value == duplicate.Value && card != cards[index]);
-                }
-            }
-        }
-
         public bool IsFlush(List<Card> cards)
         {
             this.bestHand.Clear();
@@ -360,9 +328,7 @@ namespace CSC470_TH
             // Check for a straight with Ace as 1
             var aceAsOneCards = cards.Select(card => card.Value == 14 ? new Card(1, card.Suit, 1) : card).ToList();
             var sortedAceAsOneCards = aceAsOneCards.OrderBy(card => (int)card.Value).ToList();
-            int l = 0;
             
-            // Check for a straight treating the ace as 1
             if (CheckStraight(sortedAceAsOneCards))
             {
                 // Adjust the Ace value to 1 in the bestHand list
@@ -432,7 +398,8 @@ namespace CSC470_TH
                 }
                 else
                 {
-                    return 3; // split the pot
+                    // split the pot
+                    return 3;
                 }
             }
             else if(this.handRank == 3) // two pair evaluated based on the value of the last card in the hand (highest pair)
@@ -447,11 +414,12 @@ namespace CSC470_TH
                 }
                 else
                 {
-                    return 3; // split the pot
+                    // split the pot
+                    return 3; 
                 }
 
-            }
-            else if (this.handRank == 5 || this.handRank == 6 || this.handRank == 9) // straight, flush, and straight flush evaluated based on the value of the last card in the hand (highest card)
+            } // straight, flush, and straight flush evaluated based on the value of the last card in the hand (highest card)
+            else if (this.handRank == 5 || this.handRank == 6 || this.handRank == 9) 
             {
                 if (this.bestHand[4].Value > opponentHand.bestHand[4].Value)
                 {

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Net.Security;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +18,11 @@ namespace CSC470_TH
         public Dealer(string name)
         {
             dealerName = name;
-
         }
 
         public void Shuffle(List<Card> deck)
         {
+            // cut the deck and shuffle 5 times
             Random random = new Random(Guid.NewGuid().GetHashCode());
             int numCards = deck.Count;
 
@@ -51,7 +52,6 @@ namespace CSC470_TH
             deck.Clear();
             deck.AddRange(bottomHalf);
             deck.AddRange(topHalf);
-
         }
 
         public void dealPlayerCards(List<Card> deck, List<Player> players)
@@ -90,6 +90,7 @@ namespace CSC470_TH
 
         public void burnCard(List<Card> deck, List<Card> burnCards)
         {
+            //removes a card from the top on the deck and puts it in a burn pile
             int numCards = 1;
 
             burnCards.AddRange(deck.Take(numCards));
@@ -100,6 +101,7 @@ namespace CSC470_TH
 
         public void resetTable(List<Player> players, List<Card> deck, List<Card> communityCards, List<Card> burnCards)
         {
+            // recalls all of the cards from each player and what is currently on the table for the new round
             int holeCards = 2;
             int tableCards = 5;
             int throwAways = 3;

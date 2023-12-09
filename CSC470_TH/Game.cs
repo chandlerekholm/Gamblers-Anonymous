@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CSC470_TH
 {
+    // The game class serves and the primary driver for the game engine
+    // proceding through hands, rounds, and betting is primariy preformed here
     public class Game
     {
         public List<Player> players { get; set; } = default!;
@@ -20,18 +23,23 @@ namespace CSC470_TH
         public int smallBlind { get; set; }
         public int bigBlind { get; set; }
         public int potAmount { get; set; }
-        private Player bigBlindPlayer { get; set; } = default!;
-        private Player smallBlindPlayer { get; set; } = default!;
-        private int currentPlayerIndex { get; set; }
-        private int numRounds {  get; set; }
-        private int currentBet {  get; set; }
+        public int totalPotAmount { get; set; }
+        public Player bigBlindPlayer { get; set; } = default!;
+        public Player smallBlindPlayer { get; set; } = default!;
+        public int currentSBPlayerIndex { get; set; }
+        public int currentBBPlayerIndex { get; set; }
+        public int twoPlayerSwitch {  get; set; }
+        public int startPlayerIndex { get; set; }
+        public int numRounds {  get; set; }
+        public int currentBet {  get; set; }
 
 
         public Game(int buyIn, int BB, int SB)
         {
-            //bigBlindPlayer = null;
-            //smallBlindPlayer = null;
-            currentPlayerIndex = 0;
+            this.currentSBPlayerIndex = 0;
+            this.currentBBPlayerIndex = 1;
+            this.twoPlayerSwitch = 0;
+            this.startPlayerIndex = 0;
             this.buyInAmount = buyIn;
             this.smallBlind = SB;
             this.bigBlind = BB;
@@ -42,11 +50,14 @@ namespace CSC470_TH
             this.dealer = new Dealer("Vegas Dealer");
             this.roundWinners = new List<Player>();
             this.potAmount = 0;
+            this.totalPotAmount = 0;
             this.numRounds = 0;
         }
 
         private List<Player> InitializePlayers()
         {
+            // player initialization will eventually be completed through online
+            // player UI
             List<Player> initialPlayers = new List<Player>();
 
             initialPlayers.Add(new Player("John", this.buyInAmount));
@@ -83,74 +94,101 @@ namespace CSC470_TH
         {
             while (this.players.Count > 1)
             {
+                
                 StartRound();
                 EvaluateRound();
                 ResetRound();
-                numRounds++;
+
             }
+            Console.WriteLine(this.players[0].playerName + " wins the game with a total winnings of " + this.totalPotAmount);
 
         }
 
         private void StartRound()
         {
             this.numRounds++;
+            this.startPlayerIndex = this.currentSBPlayerIndex;
             Console.WriteLine("Number of players for round " + this.numRounds + ": ");
             int numPlayers = 1;
-            for(int i = 1; i <= this.players.Count; i++)
+            Console.WriteLine("***********************************************************************************");
+            for (int i = 1; i <= this.players.Count; i++)
             {
                 Console.WriteLine("Player " + i + " = " + this.players[i - 1].playerName + " with " + this.players[i - 1].playerChips + " chips.");
                 numPlayers++;
             }
-            Console.WriteLine();
+            Console.WriteLine("***********************************************************************************\n");
 
-            this.smallBlindPlayer = GetNextPlayer();
-            this.bigBlindPlayer = GetNextPlayer();
-            Console.WriteLine("[******************************************************************************************]");
-            Console.WriteLine("[Round " + this.numRounds + " Small Blind Player = " + this.smallBlindPlayer.playerName + ".");
-            Console.WriteLine("[Round " + this.numRounds + " Big Blind Player = " + this.bigBlindPlayer.playerName + ".");
-            Console.WriteLine("[******************************************************************************************]\n");
+            if (this.players.Count == 2)
+            {
+                if(twoPlayerSwitch == 0)
+                {
+                    this.smallBlindPlayer = this.players[0];
+                    this.bigBlindPlayer = this.players[1];
+                    currentSBPlayerIndex = 0;
+                    twoPlayerSwitch++;
+                    Console.WriteLine("***********************************************************************************");
+                    Console.WriteLine("Round " + this.numRounds + " Small Blind Player = " + this.smallBlindPlayer.playerName + ".");
+                    Console.WriteLine("Round " + this.numRounds + " Big Blind Player = " + this.bigBlindPlayer.playerName + ".");
+                    Console.WriteLine("***********************************************************************************\n");
+                }
+                else
+                {
+                    this.smallBlindPlayer = this.players[1];
+                    this.bigBlindPlayer = this.players[0];
+                    currentSBPlayerIndex = 1;
+                    twoPlayerSwitch--;
+                    Console.WriteLine("***********************************************************************************");
+                    Console.WriteLine("Round " + this.numRounds + " Small Blind Player = " + this.smallBlindPlayer.playerName + ".");
+                    Console.WriteLine("Round " + this.numRounds + " Big Blind Player = " + this.bigBlindPlayer.playerName + ".");
+                    Console.WriteLine("***********************************************************************************\n");
 
-            Console.WriteLine("[******************************************************************************************]");
+                }
+            }
+            else
+            {
+                this.smallBlindPlayer = GetNextSBPlayer();
+                this.bigBlindPlayer = GetNextBBPlayer();
+                Console.WriteLine("***********************************************************************************");
+                Console.WriteLine("Round " + this.numRounds + " Small Blind Player = " + this.smallBlindPlayer.playerName + ".");
+                Console.WriteLine("Round " + this.numRounds + " Big Blind Player = " + this.bigBlindPlayer.playerName + ".");
+                Console.WriteLine("***********************************************************************************\n");
+
+            }
+
+            Console.WriteLine("***********************************************************************************");
             this.smallBlindPlayer.PaySmallBlind(smallBlind);
             this.bigBlindPlayer.PayBigBlind(bigBlind);
-            Console.WriteLine("[******************************************************************************************]\n");
+            Console.WriteLine("***********************************************************************************\n");
 
             this.potAmount = 0;
             this.potAmount += (this.bigBlind + this.smallBlind);
-            Console.WriteLine("[***********************************************************************************]");
-            Console.WriteLine("[Round " + numRounds + " starts with " + this.potAmount + " chips in the pot.");
-            Console.WriteLine("[***********************************************************************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("Round " + numRounds + " starts with " + this.potAmount + " chips in the pot.");
+            Console.WriteLine("***********************************************************************************\n");
 
             this.currentBet = this.bigBlind;
 
-            Console.WriteLine("[***********************************]");
-            Console.WriteLine("[The Dealer is shuffling deck.");
-            Console.WriteLine("[***********************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("The Dealer is shuffling deck.");
+            Console.WriteLine("***********************************************************************************\n");
             dealer.Shuffle(this.deck);
 
-            Console.WriteLine("[*********************************************]");
-            Console.WriteLine("[The Dealer is dealing out player cards.");
-            Console.WriteLine("[*********************************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("The Dealer is dealing out player cards.");
+            Console.WriteLine("***********************************************************************************\n");
             dealer.dealPlayerCards(this.deck, this.players);
-            
-            Console.WriteLine("[*****************************************************************************]");
-            foreach(Player player in this.players)
-            {
-                player.printCards();
-            }
-            Console.WriteLine("[*****************************************************************************]\n");
 
 
             // betting round before the flop
-            Console.WriteLine("[*******************************************]");
-            Console.WriteLine("[Betting round before the flop begins.");
-            Console.WriteLine("[*******************************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("Betting round before the flop begins.");
+            Console.WriteLine("***********************************************************************************\n");
             BettingRound();
 
             // dealer burns a card and then deals the flop
-            Console.WriteLine("[*****************************************]");
-            Console.WriteLine("[The Dealer is dealing out the flop.]");
-            Console.WriteLine("[*****************************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("The Dealer is dealing out the flop.");
+            Console.WriteLine("***********************************************************************************\n");
             dealer.burnCard(deck, burnCards);
             dealer.dealFLop(deck, communityCards);
             this.printCommunityCards();
@@ -158,71 +196,58 @@ namespace CSC470_TH
 
 
             // betting round after the flop
-            Console.WriteLine("[*******************************************]");
-            Console.WriteLine("[Betting round after the flop begins.");
-            Console.WriteLine("[*******************************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("Betting round after the flop begins.");
+            Console.WriteLine("***********************************************************************************\n");
             BettingRound();
 
 
             // dealer burns a card and then deals out the turn
-            Console.WriteLine("[*******************************************]");
-            Console.WriteLine("[Dealer is dealing out the turn card.");
-            Console.WriteLine("[*******************************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("Dealer is dealing out the turn card.");
+            Console.WriteLine("***********************************************************************************\n");
             dealer.burnCard(deck, burnCards);
             dealer.dealTurnRiver(deck, communityCards);
             this.printCommunityCards();
 
             // betting round after the turn
-            Console.WriteLine("[*******************************************]");
-            Console.WriteLine("[Betting round after the turn begins.");
-            Console.WriteLine("[*******************************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("Betting round after the turn begins.");
+            Console.WriteLine("***********************************************************************************\n");
             BettingRound();
 
             // dealer burns a card and then deals out the river
-            Console.WriteLine("[*******************************************]");
-            Console.WriteLine("[Dealer is dealing out the river card.");
-            Console.WriteLine("[*******************************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("Dealer is dealing out the river card.");
+            Console.WriteLine("***********************************************************************************\n");
             dealer.burnCard(deck, burnCards);
             dealer.dealTurnRiver(deck, communityCards);
             this.printCommunityCards();
 
 
             // final round of betting
-            Console.WriteLine("[*******************************************]");
-            Console.WriteLine("[Betting round after the river begins.");
-            Console.WriteLine("[*******************************************]\n");
+            Console.WriteLine("***********************************************************************************");
+            Console.WriteLine("Betting round after the river begins.");
+            Console.WriteLine("***********************************************************************************\n");
             BettingRound();
 
         }
 
-        public Player GetNextPlayer()
+        public Player GetNextSBPlayer()
         {
-            Player nextPlayer = players[currentPlayerIndex];
+            Player nextSBPlayer = players[currentSBPlayerIndex];
+            nextSBPlayer.SetBlinds(isSB: true, isBB: false);
+            currentSBPlayerIndex = (currentSBPlayerIndex + 1) % players.Count;
+            return nextSBPlayer;
+        }
 
-            // If there are only two players, alternate the roles in each round
-            if (players.Count == 2)
-            {
-                if (currentPlayerIndex % 2 == 0)
-                {
-                    // Even index, assign as small blind
-                    nextPlayer.SetBlinds(isBB: false, isSB: true);
-                }
-                else
-                {
-                    // Odd index, assign as big blind
-                    nextPlayer.SetBlinds(isBB: true, isSB: false);
-                }
-            }
-            else
-            {
-                // For more than two players, assign roles sequentially
-                nextPlayer.SetBlinds(isBB: false, isSB: false);
-            }
-
-            // Increment the current player index and wrap around if needed
-            currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
-
-            return nextPlayer;
+        public Player GetNextBBPlayer()
+        {
+       
+            Player nextBBPlayer = players[currentBBPlayerIndex];
+            nextBBPlayer.SetBlinds(isSB: false, isBB: true);
+            currentBBPlayerIndex = (currentBBPlayerIndex + 1) % players.Count;
+            return nextBBPlayer;
         }
 
         private void EvaluateRound()
@@ -233,7 +258,6 @@ namespace CSC470_TH
             // DeterminWinner return the winning player, or a list of players if there is a tie
             roundWinners = DetermineWinner(this.players, this.communityCards);
             printWinners();
-
         }
 
         private void ResetRound()
@@ -241,22 +265,37 @@ namespace CSC470_TH
             rewardPot();
             Console.WriteLine("Dealer resets table...");
             dealer.resetTable(this.players, this.deck, this.communityCards, this.burnCards);
-            foreach (Player player in this.players)
+            for(int i = 0; i < this.players.Count - 1; i++)
             {
-                player.ResetTotalBet();
-            }
+                this.players[i].ResetTotalBet();
+                this.players[i].Folded = false;
+                this.players[i].allIn = false;
 
+                if (this.players[i].playerChips <= 0)
+                {
+                    Console.WriteLine(this.players[i].playerName + " has 0 chips left and leaves the table");
+                    this.players.RemoveAt(i);
+                }
+            }
         }
 
         private void BettingRound()
         {
 
             // Keep track of players who have not folded
-            List<Player> activePlayers = new List<Player>(players);
+            List<Player> activePlayers = new List<Player>();
+            if (this.players.Count == 2)
+            {
+
+                activePlayers = new List<Player>(this.players.Skip(this.currentSBPlayerIndex).Concat(players.Take(currentSBPlayerIndex)));
+            }
+            else
+            {
+                activePlayers = new List<Player>(this.players.Skip(this.startPlayerIndex).Concat(players.Take(startPlayerIndex)));
+            }
 
             // Keep track of the player who made the last raise
             Player lastRaiser = null;
-
             bool initPass = true;
             int buyIn = this.currentBet;
 
@@ -265,24 +304,27 @@ namespace CSC470_TH
             {
                 initPass = false;
                 
-                foreach (Player player in activePlayers.ToList()) // Use ToList to create a copy and avoid modification during iteration
+                foreach (Player player in activePlayers.ToList()) 
                 {
                     if(player == lastRaiser)
                     {
                         break;
                     }
-                    
-                    
-                    if (player.Folded != true)
-                    {
-                        Console.WriteLine("It's " + player.playerName + "'s turn. " + player.playerName + " has a current bet of " + player.playerCurrentBet + " chips.");
 
+
+                    if (player.Folded != true && player.allIn != true)
+                    {
+                        Console.WriteLine("***********************************************************************************");
+                        Console.WriteLine("It's " + player.playerName + "'s turn.");
+                        Console.WriteLine(player.playerName + "'s chips = " + player.playerChips);
+                        Console.WriteLine("Current buy in = " + buyIn + "\n\n");
                         // Display options and get user input
-                        Console.WriteLine("What do you want to do? Current buy in amount is " + buyIn + " chips.");
+                        Console.WriteLine("||| What do you want to do? |||");
                         Console.WriteLine("1. Check");
                         Console.WriteLine("2. Call");
                         Console.WriteLine("3. Raise");
                         Console.WriteLine("4. Fold");
+                        Console.WriteLine("***********************************************************************************\n");
 
                         int userChoice;
                         bool validChoice = false;
@@ -298,6 +340,10 @@ namespace CSC470_TH
                                 if(userChoice == 1 && player.playerCurrentBet < this.currentBet)
                                 {
                                     Console.WriteLine(player.playerName + " needs to buy in before checking.");
+                                }
+                                else if (userChoice == 2 && player.playerCurrentBet == this.currentBet)
+                                {
+                                    Console.WriteLine(player.playerName + " is already at the current bet, please check or raise");
                                 }
                                 else
                                 {
@@ -318,17 +364,17 @@ namespace CSC470_TH
                         switch (userChoice)
                         {
                             case 1: // Check
-                                Console.WriteLine("[**************************************************************]");
+                                Console.WriteLine("***********************************************************************************");
                                 player.Check();
                                 player.UpdateCurrentBet(0, isBlind);
-                                Console.WriteLine("[**************************************************************]\n");
+                                Console.WriteLine("***********************************************************************************\n");
                                 break;
 
                             case 2: // Call
-                                Console.WriteLine("[**************************************************************]");
+                                Console.WriteLine("***********************************************************************************");
                                 amountToBet = player.Call(this.currentBet);
                                 player.UpdateCurrentBet(amountToBet, isBlind);
-                                Console.WriteLine("[**************************************************************]\n");
+                                Console.WriteLine("***********************************************************************************\n");
                                 break;
 
                             case 3: // Raise
@@ -340,10 +386,10 @@ namespace CSC470_TH
 
                                     if (int.TryParse(raiseInput, out int raiseAmount))
                                     {
-                                        Console.WriteLine("[**************************************************************]");
+                                        Console.WriteLine("***********************************************************************************");
                                         amountToBet = player.Raise(raiseAmount, this.currentBet);
                                         player.UpdateCurrentBet(amountToBet, isBlind);
-                                        Console.WriteLine("[**************************************************************]\n");
+                                        Console.WriteLine("***********************************************************************************\n");
                                         buyIn = this.currentBet + raiseAmount;
                                         if(amountToBet > 0)
                                         {
@@ -392,6 +438,7 @@ namespace CSC470_TH
             Console.WriteLine("[*******************************]");
             Console.WriteLine("[**********Betting ends*********]");
             Console.WriteLine("[*******************************]\n");
+            this.totalPotAmount += this.potAmount;
             this.currentBet = 0;
             foreach(Player player in this.players)
             {
@@ -404,11 +451,6 @@ namespace CSC470_TH
         private bool AllPlayersHaveSameBet(List<Player> players, int currentBet)
         {
             // used to determine if betting should continue, checks to see if all players have either folded, gone all on, or if players bet equal to current bet
-            Console.WriteLine("Round current bet = " + currentBet);
-            foreach (Player player in players)
-            {
-                Console.WriteLine(player.playerName + "'s current bet = " + player.playerCurrentBet);
-            }
             return players.All(player => player.Folded || player.allIn || player.playerCurrentBet == this.currentBet);
         }
 
@@ -422,6 +464,7 @@ namespace CSC470_TH
             if (this.roundWinners.Count() == 1)
             {
                 Console.WriteLine("Rewarding " + this.roundWinners[0].playerName + " with pot amount $" + this.potAmount);
+                roundWinners[0].addToChips(this.potAmount);
             }
             else
             {
@@ -429,6 +472,8 @@ namespace CSC470_TH
                 foreach (Player p in roundWinners)
                 {
                     Console.WriteLine(p.playerName);
+                    p.addToChips(this.potAmount / roundWinners.Count);
+
                 }
 
             }
@@ -516,10 +561,9 @@ namespace CSC470_TH
                 {
                     Console.Write(p.playerName + ", ");
                 }
-                Console.WriteLine("split the pot with a " + this.roundWinners[0].playersHand.handTitle);
+                Console.WriteLine("splits the pot with a " + this.roundWinners[0].playersHand.handTitle);
 
             }
-
             foreach (Player p in roundWinners)
             {
                 Console.WriteLine(p.playerName + " wins the round with a " + p.playersHand.handTitle);
