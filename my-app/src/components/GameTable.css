@@ -2,7 +2,6 @@
     color: red;
     text-align: center;
     padding: 10px;
-    /* Additional styling as needed */
 }
 .table-container {
     position: relative;
@@ -10,10 +9,24 @@
 }
 .game-table {
     background-color: green;
-    padding: 20px;
     border-radius: 10px;
     display: inline-block;
-    margin: 20px;
+    margin: 50px auto 0;
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+    margin-bottom: 150px;
+    padding: 40px;
+    /*width: calc(100% * 2);  cards were way too far to the right */
+    width: 100vw;
+    max-width: 500px;
+    height: auto;;
+    transform: scale(1.5);
+}
+.waiting-text { /* White text under the API error message */
+    color: white;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .community-cards {
@@ -64,7 +77,48 @@
     padding: 20px;
     border-radius: 10px;
     width: 150px;
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    bottom: -100px; /* Adjust this value so it positions the player boxes below the table */
+    left: 0;
+    right: 0;
 }
+.player-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Adjust as needed for spacing */
+    margin-top: 20px; /* Adjust as needed for gap between table and player boxes */
+}
+
+.player-box {
+    background-color: #333; /* Your dark gray color */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center; /* Aligns text in the center of the player box */
+}
+
+.chips {
+    margin-top: 5px; /* Spacing between player name and chips */
+}
+
+.player-actions {
+    display: flex;
+    flex-direction: column; /* Stacks buttons on top of each other */
+    gap: 5px; /* Spacing between buttons */
+}
+
+.button {
+    background-color: #666; /* Button color */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 
 .exit-button {
     background-color: #f00;
